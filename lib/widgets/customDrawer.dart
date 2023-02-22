@@ -3,6 +3,8 @@ import 'package:gbpl_2023/const/colors.dart';
 import 'package:gbpl_2023/screens/fetch_data.dart';
 import 'package:gbpl_2023/screens/insertData.dart';
 
+import '../screens/fanScreen.dart';
+
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
 
@@ -21,7 +23,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             height: 102,
             child: const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: AppColor.blue,
               ),
               child: Text('Menu', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColor.white),),
             ),
@@ -85,7 +87,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   child: const Text('Fan', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: AppColor.blue), textAlign: TextAlign.center,),
                 )),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const FanScreen()));
             },
           ),ListTile(
             title: Container(

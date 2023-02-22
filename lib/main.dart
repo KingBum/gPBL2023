@@ -12,7 +12,7 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options:DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 
@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        
         fontFamily: "Metropolis",
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const SplashScreen(),
+      home: SplashScreen(),
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
         HumiScreen.routeName: (context) => HumiScreen(),

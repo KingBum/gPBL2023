@@ -102,8 +102,9 @@ class CustomNavBar extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           if (!humi) {
-                            Navigator.of(context)
-                                .pushReplacementNamed(HumiScreen.routeName);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const HumiScreen()));
                           }
                         },
                         child: Column(

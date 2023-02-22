@@ -26,14 +26,14 @@ class _FetchDataState extends State<FetchData> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            student['name'],
+            student['Humi'].toString(),
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const SizedBox(
             height: 5,
           ),
           Text(
-            student['comments'],
+            student['Temp'].toString(),
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           const SizedBox(

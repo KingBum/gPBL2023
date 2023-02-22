@@ -45,7 +45,7 @@ class _LightScreenState extends State<LightScreen> {
                   ),
                   title: CustomTopBar(),
                   centerTitle: true,
-                  backgroundColor: Colors.blue),
+                backgroundColor: AppColor.blue,),
 
             ),
             body: Container(
@@ -55,6 +55,7 @@ class _LightScreenState extends State<LightScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: 60,),
+                    Text("Light", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColor.blue),),
                     status
                         ? Icon(Icons.lightbulb, size: 120, color: AppColor.blue,)
                         : Icon(Icons.lightbulb_outline, size: 120, color: AppColor.primary,),

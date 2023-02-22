@@ -1,158 +1,210 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dialogflow/utils/language.dart';
+import 'package:flutter_dialogflow/v2/auth_google.dart';
+import 'package:flutter_dialogflow/v2/dialogflow_v2.dart';
 import 'package:gbpl_2023/const/colors.dart';
 import 'package:gbpl_2023/utils/helper.dart';
-import 'package:gbpl_2023/widgets/customDrawer.dart';
-import 'package:gbpl_2023/widgets/customNavBar.dart';
-import 'package:gbpl_2023/widgets/customTopBar.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
-class HumiScreen extends StatelessWidget {
+class HumiScreen extends StatefulWidget {
   const HumiScreen({Key? key}) : super(key: key);
   static const routeName = "/humiScreen";
 
   @override
+  State<HumiScreen> createState() => _HumiScreenState();
+}
+
+class _HumiScreenState extends State<HumiScreen> {
+
+  void response(query) async {
+    AuthGoogle authGoogle = await AuthGoogle(
+        fileJson: "assets/service.json")
+        .build();
+    Dialogflow dialogflow =
+    Dialogflow(authGoogle: authGoogle, language: Language.english);
+    AIResponse aiResponse = await dialogflow.detectIntent(query);
+    setState(() {
+      messsages.insert(0, {
+        "data": 0,
+        "message": aiResponse.getListMessage()[0]["text"]["text"][0].toString()
+      });
+    });
+
+
+    // print(aiResponse.getListMessage()[0]["text"]["text"][0].toString());
+    print(aiResponse.getListMessage());
+    print(aiResponse);
+  }
+
+  final messageInsert = TextEditingController();
+  List<Map> messsages = [];
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(70.0),
-              child: AppBar(
-                  leading: Builder(
-                    builder: (BuildContext context) {
-                      return IconButton(
-                        icon: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: const Icon(
-                            Icons.menu,
-                            color: AppColor.white,
-                            size: 44, // Changing Drawer Icon Size
-                          ),
-                        ),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        },
-                        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-                      );
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColor.blue,
+        title: Row(
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios_new,
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            SizedBox(width: 10,),
+            Text(
+              "Chat bot",
+            ),
+          ],
+        ),
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Flexible(
+                child: ListView.builder(
+                    reverse: true,
+                    itemCount: messsages.length,
+                    itemBuilder: (context, index) => chat(
+                        messsages[index]["message"].toString(),
+                        messsages[index]["data"]))),
+            SizedBox(
+              height: 20,
+            ),
+
+            Container(
+              child: ListTile(
+                title: Container(
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(
+                        15)),
+                    color: Color.fromRGBO(220, 220, 220, 1),
+                  ),
+                  padding: EdgeInsets.only(left: 15),
+                  child: TextFormField(
+                    controller: messageInsert,
+                    decoration: InputDecoration(
+                      hintText: "Enter a Message...",
+                      hintStyle: TextStyle(
+                          color: Colors.black26
+                      ),
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                    ),
+
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: AppColor.primary
+                    ),
+                    onChanged: (value) {
+
                     },
                   ),
-                  title: CustomTopBar(),
-                  centerTitle: true,
-                  backgroundColor: Colors.blue),
+                ),
+
+                trailing: IconButton(
+
+                    icon: Icon(
+
+                      Icons.send,
+                      size: 30.0,
+                      color: AppColor.blue,
+                    ),
+                    onPressed: () {
+
+                      if (messageInsert.text.isEmpty) {
+                        print("empty message");
+                      } else {
+                        setState(() {
+                          messsages.insert(0,
+                              {"data": 1, "message": messageInsert.text});
+                        });
+                        response(messageInsert.text);
+                        messageInsert.clear();
+                      }
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+                      if (!currentFocus.hasPrimaryFocus) {
+                        currentFocus.unfocus();
+                      }
+                    }),
+
+              ),
 
             ),
-            body: Container(
-              width: Helper.getScreenWidth(context),
-              height: Helper.getScreenHeight(context),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: 30,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          color:  AppColor.backgrtext,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              "What’s the weather?", style: TextStyle(color: AppColor.primary),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 40,
-                          child: Image.asset(
-                            Helper.getAssetName("Ai.png", "real"),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        Container(
-                          color:  AppColor.backgrtext,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              "Da Nang, 23℃", style: TextStyle(color: AppColor.primary),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          color:  AppColor.backgrtext,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              "Are you alive?", style: TextStyle(color: AppColor.primary),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 40,
-                          child: Image.asset(
-                            Helper.getAssetName("Ai.png", "real"),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        Container(
-                          color:  AppColor.backgrtext,
-                          width: 250,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text(
-                              "I’m not sure.  But my creators "
-                                "struggied to create me useful.", style: TextStyle(color: AppColor.primary),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 80,),
-                    Container(
-                      width: 350,
-                      height: 50,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 16, left: 16),
-                        child: const TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Enter your question here...',
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
+            SizedBox(
+              height: 15.0,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget chat(String message, int data) {
+    return Container(
+      padding: EdgeInsets.only(left: 20, right: 20),
+
+      child: Row(
+        mainAxisAlignment: data == 1 ? MainAxisAlignment.end : MainAxisAlignment.start,
+        children: [
+
+          data == 0 ? Container(
+            height: 60,
+            width: 60,
+            child: Image.asset(
+              Helper.getAssetName("Ai.png", "real"),
+              fit: BoxFit.fill,
             ),
-            drawer: CustomDrawer(),
-          ),
+          ) : Container(),
+
           Padding(
-            padding: const EdgeInsets.only(top: 560.0),
-            child: CustomNavBar(
-              home: false,
-              temp: false,
-              light: false,
-              humi: true,
+            padding: EdgeInsets.all(10.0),
+            child: Padding(
+              padding: EdgeInsets.all(2.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Flexible(
+                      child: Container(
+                        constraints: BoxConstraints( maxWidth: 200),
+                        color: AppColor.backgrtext,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child:
+                          data == 0
+                          ?AnimatedTextKit(
+                            isRepeatingAnimation: false,
+                            animatedTexts: [
+                              TypewriterAnimatedText(message, textStyle: TextStyle(
+                                  color: AppColor.primary, fontWeight: FontWeight.bold),),
+                            ],
+                          )
+                          :
+                          Text(
+                            message,
+                            style: TextStyle(
+                                color: AppColor.primary, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ))
+                ],
+              ),
             ),
           ),
 

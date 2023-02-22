@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(70.0),
               child: AppBar(
+                  backgroundColor: AppColor.blue,
                   leading: Builder(
                     builder: (BuildContext context) {
                       return IconButton(
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   title: CustomTopBar(),
                   centerTitle: true,
-                  backgroundColor: Colors.blue),
+                  ),
             ),
             body: Container(
               width: Helper.getScreenWidth(context),

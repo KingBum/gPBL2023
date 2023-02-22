@@ -72,8 +72,8 @@ class _InsertDataState extends State<InsertData> {
                 MaterialButton(
                   onPressed: () {
                     Map<String, String> datas = {
-                      'name': tempController.text,
-                      'comments': humiController.text,
+                      'Temp': tempController.text,
+                      'Humi': humiController.text,
                     };
 
                     dbRef.push().set(datas);
