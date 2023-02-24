@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 import '../const/colors.dart';
 import '../utils/helper.dart';
 
-class FanScreen extends StatefulWidget {
-  const FanScreen({Key? key}) : super(key: key);
+class WaterScreen extends StatefulWidget {
+  const WaterScreen({Key? key}) : super(key: key);
 
   final String studentKey = "-NOnKk57mJP5vQhTDm7h";
 
   @override
-  State<FanScreen> createState() => _FanScreenState();
+  State<WaterScreen> createState() => _WaterScreenState();
 }
 
-class _FanScreenState extends State<FanScreen>
+class _WaterScreenState extends State<WaterScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 500 ),
@@ -47,17 +47,14 @@ class _FanScreenState extends State<FanScreen>
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 60,),
-          Text("Fan", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColor.blue),),
-          student['isFan'] ?
+          Text("Watering", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColor.blue),),
+          student['isPump'] ?
           Center(
-            child: RotationTransition(
-              turns: _animation,
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Image.asset(
-                  Helper.getAssetName("fan.png", "real"),
-                  fit: BoxFit.fill,
-                ),
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Image.asset(
+                Helper.getAssetName("water.gif", "real"),
+                fit: BoxFit.fill,
               ),
             ),
           )
@@ -65,19 +62,19 @@ class _FanScreenState extends State<FanScreen>
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Image.asset(
-                Helper.getAssetName("fan.png", "real"),
+                Helper.getAssetName("water1.png", "real"),
                 fit: BoxFit.fill,
               ),
             ),
           ),
           CustomSwitch(
             activeColor: AppColor.blue,
-            value: student['isFan'],
+            value: student['isPump'],
             onChanged: (value) {
               vlRef.update({
-                "isFan": !student['isFan'],
+                "isPump": !student['isPump'],
               });
-              print("VALUE : $student['isFan']");
+              print("VALUE : $student['isPump']");
             },
           ),
         ],
@@ -106,7 +103,7 @@ class _FanScreenState extends State<FanScreen>
             ),
             SizedBox(width: 10,),
             Text(
-              "Fan System",
+              "Water System",
             ),
           ],
         ),

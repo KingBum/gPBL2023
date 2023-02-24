@@ -1,4 +1,6 @@
 import 'package:custom_switch/custom_switch.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:gbpl_2023/const/colors.dart';
 import 'package:gbpl_2023/utils/helper.dart';
@@ -15,7 +17,52 @@ class LightScreen extends StatefulWidget {
 }
 
 class _LightScreenState extends State<LightScreen> {
-  bool status = false;
+
+  final vlRef = FirebaseDatabase.instance.ref().child("Datas/-NOnKk57mJP5vQhTDm7h");
+
+  Query dbRef = FirebaseDatabase.instance.ref().child('Datas');
+  DatabaseReference reference = FirebaseDatabase.instance.ref().child('Datas');
+
+
+  Widget listItem({required Map student}) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
+      height: Helper.getScreenHeight(context),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 60,),
+          Text("Light", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColor.blue),),
+          student['isLight'] ?
+          Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+                child: Icon(Icons.lightbulb, size: 130, color: AppColor.blue,)
+            ),
+          )
+              : Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Icon(Icons.lightbulb_outline, size: 130, color: AppColor.blue,)
+            ),
+          ),
+          CustomSwitch(
+            activeColor: AppColor.blue,
+            value: student['isLight'],
+            onChanged: (value) {
+              vlRef.update({
+                "isLight": !student['isLight'],
+              });
+              print("VALUE : $student['isLight']");
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,32 +98,16 @@ class _LightScreenState extends State<LightScreen> {
             body: Container(
               width: Helper.getScreenWidth(context),
               height: Helper.getScreenHeight(context),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: 60,),
-                    Text("Light", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColor.blue),),
-                    status
-                        ? Icon(Icons.lightbulb, size: 120, color: AppColor.blue,)
-                        : Icon(Icons.lightbulb_outline, size: 120, color: AppColor.primary,),
-                    SizedBox(height: 10,),
-                    CustomSwitch(
-                      activeColor: AppColor.blue,
-                      value: status,
-                      onChanged: (value) {
-                        print("VALUE : $value");
-                        setState(() {
-                          status = value;
-                        });
-                      },
-                    ),
-                    SizedBox(height: 12.0,),
-                    Text('Value : $status', style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0
-                    ),)
-                  ],
-                ),
+              child: FirebaseAnimatedList(
+                query: dbRef,
+                itemBuilder: (BuildContext context, DataSnapshot snapshot, Animation<double> animation, int index) {
+
+                  Map student = snapshot.value as Map;
+                  student['key'] = snapshot.key;
+
+                  return listItem(student: student);
+
+                },
               ),
             ),
             drawer: CustomDrawer(),

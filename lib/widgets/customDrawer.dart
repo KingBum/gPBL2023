@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gbpl_2023/const/colors.dart';
 import 'package:gbpl_2023/screens/fetch_data.dart';
 import 'package:gbpl_2023/screens/insertData.dart';
+import 'package:gbpl_2023/screens/waterScreen.dart';
 
 import '../screens/fanScreen.dart';
 
@@ -64,10 +65,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 color: AppColor.backgr,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: const Text('Pumps', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: AppColor.blue), textAlign: TextAlign.center,),
+                  child: const Text('Watering', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20, color: AppColor.blue), textAlign: TextAlign.center,),
                 )),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const WaterScreen()));
             },
           ),ListTile(
             title: Container(

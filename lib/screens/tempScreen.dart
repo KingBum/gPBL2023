@@ -138,30 +138,6 @@ class _TempScreenState extends State<TempScreen> {
 
                 },
               ),
-              // child: SingleChildScrollView(
-              //   child: Column(
-              //     children: [
-              //       SizedBox(height: 50,),
-              //       Container(
-              //         height: 100,
-              //         child: Image.asset(
-              //           Helper.getAssetName("temp.png", "real"),
-              //           fit: BoxFit.fill,
-              //         ),
-              //       ),
-              //       Text('Humi : 50℃ ', style: TextStyle(fontSize: 40),),
-              //       SizedBox(height: 30,),
-              //       Container(
-              //         height: 100,
-              //         child: Image.asset(
-              //           Helper.getAssetName("humi.png", "real"),
-              //           fit: BoxFit.fill,
-              //         ),
-              //       ),
-              //       Text('Humi : 50℃ ', style: TextStyle(fontSize: 40),),
-              //     ],
-              //   ),
-              // ),
             ),
             drawer: CustomDrawer(),
           ),
