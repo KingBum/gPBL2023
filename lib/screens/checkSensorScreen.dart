@@ -1,6 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 
+import '../const/colors.dart';
+import '../utils/helper.dart';
 import 'homeScreen.dart';
 
 class CheckSensorScreen extends StatefulWidget {
@@ -13,9 +16,15 @@ class CheckSensorScreen extends StatefulWidget {
 
 class _CheckSensorScreenState extends State<CheckSensorScreen> {
 
-  final  humiController = TextEditingController();
-  final  tempController= TextEditingController();
-  final  luxController =TextEditingController();
+  final humiController = TextEditingController();
+  final tempController= TextEditingController();
+  final luxController =TextEditingController();
+
+  var temp1 = 0;
+  var humi1 = 0;
+  var lux1 = 0;
+
+
   final vlRef = FirebaseDatabase.instance.ref().child("Datas/-NOnKk57mJP5vQhTDm7h");
 
   late DatabaseReference dbRef;
@@ -32,9 +41,9 @@ class _CheckSensorScreenState extends State<CheckSensorScreen> {
 
     Map data = snapshot.value as Map;
 
-    humiController.text = data['isHumi'];
-    tempController.text = data['isTemp'];
-    luxController.text = data['isLux'];
+    temp1 = data['isHumi'];
+    humi1 = data['isTemp'];
+    lux1 = data['isLux'];
 
   }
 
@@ -46,83 +55,91 @@ class _CheckSensorScreenState extends State<CheckSensorScreen> {
         title: Text('Updating record'),
       ),
       body:  Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                ),
-                const Text(
-                  'Updating data in Firebase Realtime Database',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextField(
-                  controller: humiController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Humi Limit',
-                    hintText: 'Enter Number You Want',
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextField(
-                  controller: tempController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Temp limit',
-                    hintText: 'Enter Number You Want',
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextField(
-                  controller: luxController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Lux limit',
-                    hintText: 'Enter Number You Want',
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                MaterialButton(
-                  onPressed: () {
+        child: Container(
+          width: Helper.getScreenWidth(context),
+          height: Helper.getScreenHeight(context),
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
 
-                    Map<String, String> students = {
-                      'isHumi': humiController.text,
-                      'isTemp': tempController.text,
-                      'isLux': luxController.text
-                    };
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  const Text(
+                    'Updating data in Firebase Realtime Database',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text("Current Humi limit : $humi1", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                  TextField(
+                    controller: humiController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Humi Limit',
+                      hintText: 'Enter Number You Want',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text("Current Temp limit : $temp1", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                  TextField(
+                    controller: tempController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Temp limit',
+                      hintText: 'Enter Number You Want',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text("Current Lux limit : $lux1", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                  TextField(
+                    controller: luxController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Lux limit',
+                      hintText: 'Enter Number You Want',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  MaterialButton(
+                    onPressed: () {
 
-                    vlRef.update(students)
-                        .then((value) => {
+                      Map<String, int> students = {
+                        'isHumi': int.parse(humiController.text),
+                        'isTemp': int.parse(tempController.text),
+                        'isLux': int.parse(luxController.text)
+                      };
+
+                      vlRef.update(students)
+                          .then((value) => {
                         Navigator.of(context).pushReplacementNamed(HomeScreen.routeName)
-                    });
+                      });
 
-                  },
-                  child: const Text('Update Data'),
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  minWidth: 300,
-                  height: 40,
-                ),
-              ],
+                    },
+                    child: const Text('Update Data'),
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    minWidth: 300,
+                    height: 40,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
