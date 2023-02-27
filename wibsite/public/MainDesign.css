@@ -1,0 +1,162 @@
+.subtitle {
+    position: absolute;
+    top: 22%;
+    left: 88%;
+}
+
+  .id{
+    position: absolute;
+    top: 20%;
+    left: 5%;
+  }
+
+  .yourid{
+    position: absolute;
+    top: 20%;
+    left: 10%;
+  }
+
+  .leadweather{
+    position: absolute;
+    top: 30%;
+    left: 5%;
+  }
+
+  .weather{
+    position: absolute;
+    top: 31%;
+    left: 14%;
+  }
+
+  .weatherchangebutton{
+    position: absolute;
+    top: 31%;
+    left: 20%;
+    width: 200px;
+  }
+
+  .leadlocation{
+    position: absolute;
+    top: 40%;
+    left: 5%;
+  }
+
+  .location{
+    position: absolute;
+    top: 41%;
+    left: 14%;
+  }
+
+  .leadtemperature{
+    position: absolute;
+    top: 50%;
+    left: 35%;
+  }
+
+  .temperature{
+    position: absolute;
+    top: 51%;
+    left: 53%;
+  }
+
+  .temperatureimage{
+    position: absolute;
+    top: 50%;
+    left: 30%;  
+  }
+
+  .leadhumidity{
+    position: absolute;
+    top: 60%;
+    left: 35%;
+  }
+
+  .humidity{
+    position: absolute;
+    top: 61%;
+    left: 53%;
+  }
+
+  .humidityimage{
+    position: absolute;
+    top: 59%;
+    left: 30%;
+
+  }
+
+  .leadlight{
+    position: absolute;
+    top: 70%;
+    left: 35%;
+  }
+
+  .light{
+    position: absolute;
+    top: 71%;
+    left: 53%;
+  }
+
+  .lightimage{
+    position: absolute;
+    top: 69%;
+    left: 30%;
+  }
+
+  .status{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+  }
+
+  .box9{
+    position: absolute;
+    top: 22%;
+    left: 5%;
+  }
+
+  .box10{
+    position: absolute;
+    top: 22%;
+    left: 5%;
+  }
+
+  .switch_label {
+    display: flex;
+    position: absolute;
+    top: 35%;
+    left: 51%;
+  }
+  
+  input[type='checkbox'] {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+  
+  .base {
+    width: 56px;
+    border-radius: 15px;
+    height: 32px;
+    background-color: #ddd;
+  }
+
+  .circle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    background-color: white;
+    transition: 0.5s;
+  }
+  
+  input:checked ~ .base {
+    background-color: #00ff00;
+    transition: 0.5s;
+  }
+
+  input:checked ~ .circle {
+    transform: translateX(100%);
+    background-color: white;
+  }
