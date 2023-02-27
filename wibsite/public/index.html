@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="MainDesign.css">
+    <script src="Main.js"></script>
+    <title>Document</title>
+</head>
+<body bgcolor="#ffffff">
+    <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333;">
+        <h2 style="text-align:center">Greenhouse farming system</h2></div>
+
+    <div class="subtitle box">made in gPBL(Vietnam)</div>
+
+    <div class="id box" >your id:</div>
+    <div class="yourid box" id="name"></div>
+    
+    <div class="leadweather box"><font size="5">weather:</font></div>
+    <div class="weather box" id="weather"></div>
+    
+    <!--<div class="weatherchangebutton box"><input type="button" value="change"></div>-->
+    
+    <div class="leadlocation box"><font size="5">location:</font></div>
+    <div class="location box" id="location"></div>
+    
+    <div class="leadtemperature box"><font size="5">Temperature:</font></div>
+    <div class="temperature box" id="temperature"><font color="red"></font></div>
+    <div class="temperatureimage box" id="temperatureimage">
+        <img src="temperature.jpeg" width=40 height=40 alt="パンダ"></div>    
+
+    <div class="leadhumidity box"><font size="5">level of humidity:</font></div>
+    <div class="humidity box" id="humidity"></div>
+    <div class="humidityimage box" id="humidityimage">
+    <img src="humidity.jpeg" width=40 height=40 alt="パンダ"></div>
+    
+    <div class="leadlight box"><font size="5">lebel of light:</font></div>
+    <div class="light box" id="light"></div>
+    <div class="lightimage box" id="lightimage">
+    <img src="light.jpeg" width=40 height=40 alt="パンダ"></div>
+        
+    <div class="status box"><font size="5">status</font></div>
+
+    <label for="switch" class="switch_label">
+        <div class="switch">
+          <input type="checkbox" id="switch" onchange="foo();"/>
+          <div class="circle"></div>
+          <div class="base"></div>
+        </div>
+      </label>
+<script>
+</script>>
+</body>
+</html>
