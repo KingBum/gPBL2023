@@ -1,0 +1,47 @@
+[debug] [2023-02-26T03:29:47.966Z] ----------------------------------------------------------------------
+[debug] [2023-02-26T03:29:47.968Z] Command:       C:\node.exe C:\Users\SUZUKI YUSUKE\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2023-02-26T03:29:47.969Z] CLI Version:   11.24.0
+[debug] [2023-02-26T03:29:47.970Z] Platform:      win32
+[debug] [2023-02-26T03:29:47.970Z] Node Version:  v18.14.2
+[debug] [2023-02-26T03:29:47.971Z] Time:          Sun Feb 26 2023 10:29:47 GMT+0700 (インドシナ時間)
+[debug] [2023-02-26T03:29:47.971Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-26T03:29:47.978Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-02-26T03:29:48.040Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-26T03:29:48.040Z] > authorizing via signed-in user (youfulingmu870@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\SUZUKI YUSUKE\1gpbl\new4
+
+[debug] [2023-02-26T03:29:48.691Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2023-02-26T03:29:48.692Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2023-02-26T03:31:02.740Z] > refreshing access token with scopes: []
+[debug] [2023-02-26T03:31:02.742Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-02-26T03:31:02.742Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-26T03:31:03.028Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-02-26T03:31:03.029Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-26T03:31:03.046Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2023-02-26T03:31:03.046Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"demo-app","name":"demo-app"}
+[debug] [2023-02-26T03:31:04.117Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 400
+[debug] [2023-02-26T03:31:04.118Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":400,"message":"field [project_id] has issue [project_id contains prohibited words]","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"project_id","description":"project_id contains prohibited words"}]},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"url":"https://cloud.google.com/resource-manager/reference/rest/v1/projects"}]}]}}
+[debug] [2023-02-26T03:31:04.310Z] FirebaseError: HTTP Error: 400, field [project_id] has issue [project_id contains prohibited words]
+    at responseToError (C:\Users\SUZUKI YUSUKE\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:49:12)
+    at RetryOperation._fn (C:\Users\SUZUKI YUSUKE\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:288:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
